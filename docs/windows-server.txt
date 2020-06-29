@@ -1,0 +1,38 @@
+Para que isso não aconteça, você deve instalar seu site como um Windows Service.
+ Para fazer isso, primeiro instale o módulo node-windows globalmente:
+
+npm install -g node-windows
+
+Agora rode o seguinte comando (dentro da pasta do seu projeto) para incluir uma referência deste módulo
+ ao seu projeto:
+
+npm link node-windows
+
+Depois, dentro do seu projeto Node.js (na raiz mesmo) crie um arquivo service.js com o seguinte conteúdo:
+
+var Service = require('node-windows').Service;
+
+// Create a new service object
+var svc = new Service({
+  name:'Nome da sua Aplicação',
+  description: 'Apenas uma descrição',
+  script: 'C:\\domains\\sitenodejs\\bin\\www'
+});
+
+// Listen for the "install" event, which indicates the
+// process is available as a service.
+svc.on('install',function(){
+  svc.start();
+});
+
+svc.install();
+
+rode node service.js
+------------------------
+Caso precise remover esse serviço (para instalar uma versão mais atualizada, por exemplo) rode o comando abaixo no cmd:
+
+sc getkeyname servicename
+SC STOP keyname
+SC DELETE keyname
+
+Esse servicename você encontra nas propriedades do Windows Service que deseja excluir.

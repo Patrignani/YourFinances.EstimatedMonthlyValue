@@ -1,0 +1,39 @@
+npm install typescript gulp gulp-typescript http express debug body-parser mongoose cors passport passport-jwt noder.io compression cpx --save
+
+./node_modules/.bin/tsc --init
+
+npm i @types/node --save
+
+npm install -g gulp --save
+
+npm install --save
+
+//se usar banco
+ npm install pg
+
+ //gulpfile
+var gulp = require('gulp');
+var ts = require('gulp-typescript');
+var tsProject = ts.createProject('tsconfig.json');
+
+gulp.task('default', function () {
+    return tsProject.src()
+        .pipe(tsProject())
+        .js.pipe(gulp.dest('dist'));
+});
+
+//ts Config
+{
+  "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "outDir": "dist"
+  },
+  "include": [
+      "src/**/*.ts",    
+      "bin/**/*.ts"
+  ],
+  "exclude": [
+      "node_modules"
+  ]
+}

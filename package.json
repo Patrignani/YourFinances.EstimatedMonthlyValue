@@ -1,0 +1,38 @@
+{
+  "name": "yourfinances.estimatedmonthlyvalue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cpx web.config dist/bin && gulp && node ./dist/bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Patrignani/YourFinances.EstimatedMonthlyValue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Patrignani/YourFinances.EstimatedMonthlyValue/issues"
+  },
+  "homepage": "https://github.com/Patrignani/YourFinances.EstimatedMonthlyValue#readme",
+  "dependencies": {
+    "@types/node": "^14.0.14",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "cpx": "^1.5.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "http": "0.0.1-security",
+    "mongoose": "^5.9.20",
+    "noder.io": "^1.2.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.2.1",
+    "ramda": "^0.27.0",
+    "typescript": "^3.9.5"
+  }
+}
