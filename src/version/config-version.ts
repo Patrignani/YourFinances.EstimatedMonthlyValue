@@ -8,13 +8,13 @@ const getVersion = async () => {
     console.log('getVersion');
     let verionReturn = 0;
     try {
-        let script = `SELECT version FROM PUBLIC."version" WHERE application= $1
-        ORDER BY dateupdate DESC
+        let script = `SELECT Version FROM PUBLIC."Version" WHERE Application= $1
+        ORDER BY DateUpdate DESC
         FETCH FIRST 1 ROWS ONLY` ;
 
         let connection = new Connector();
         let version = await connection.ExecQueryAsync(script, ['YourFinances.EstimatedMonthlyValue']);
-        const result = version.rows.map(version => version["version"]);
+        const result = version.rows.map(version => version["Version"]);
 
         if (result.length > 0)
             verionReturn = result[0];
