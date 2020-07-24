@@ -2,19 +2,22 @@ import { Pool, Client } from 'pg';
 import { SystemConfig } from "../config/system-config";
 
 export class Connector {
-    private pool: Pool;
 
-    constructor(notstartPool?: boolean) {
-        if (!notstartPool) {
+    GetClient() {
+        let  pool = new Pool({
+            connectionString: SystemConfig.CONNECTION_STRING_PG,
+        });
 
-            this.pool = new Pool({
-                connectionString: SystemConfig.CONNECTION_STRING_PG,
-            });
-        }
+        return pool.connect();;
+    }
+
+    CloseConnection(client) {
+        client.release();
     }
 
     async ExecQueryAsync(query: string, object?: any[]) {
-        const client = await this.pool.connect();
+     
+        const client = await this.GetClient();
         let res: any;
 
         if (object)
@@ -22,13 +25,16 @@ export class Connector {
         else
             res = await client.query(query);
 
+        this.CloseConnection(client);
+
         return res;
     }
 
     async ExecInsertAsync(query: string, object: any[]) {
-        const client = await this.pool.connect();
+      
+        const client = await this.GetClient();
         const res = await client.query(query, object);
-
+        this.CloseConnection(client);
         return res;
     }
 
@@ -45,7 +51,7 @@ export class Connector {
         let con = new Pool({
             connectionString: dbCon,
         });
-   
+
         let query = 'SELECT COUNT(datname) FROM pg_database WHERE datname = $1';
 
         const client = await con.connect();
@@ -63,7 +69,7 @@ export class Connector {
             console.log("Concluido!")
         }
 
-        
+        this.CloseConnection(client);
         console.log("Fim Database")
     }
 

@@ -8,13 +8,14 @@ export async function CreateVersionDb(){
     let tableVersion = `
     CREATE TABLE "Version"(
      "Id" SERIAL PRIMARY KEY,
-     "Version" VARCHAR (50) UNIQUE NOT NULL,
-     "Application" VARCHAR (50) UNIQUE NOT NULL,
+     "Version" VARCHAR (50) NOT NULL,
+     "Application" VARCHAR (50) NOT NULL,
      "DateUpdate" TIMESTAMP
  );
     `
  
     await con.ExecQueryAsync(tableVersion);
+
     console.log('Fim CreateVersionDb');
 }
 
@@ -42,15 +43,10 @@ export async function CreateVersionDb(){
      ON "EstimatedMonthlyValue" ("Identification", "AccountId");
     `
     await con.ExecQueryAsync(indexEstimed);
-    
-    let insertVersion = `
-    INSERT INTO public."Version"(
-         "Version", "Application", "DateUpdate")
-        VALUES ($1, $2, $3);
-    `
-
-    await con.ExecInsertAsync(insertVersion,[version,'YourFinances.EstimatedMonthlyValue', new Date()]);
+   
     console.log('v1 - Cadastrou versão');
 
     console.log('Fim v1');
+
+    return version;
 }
